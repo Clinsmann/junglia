@@ -1,34 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
-import { getUsers } from './api';
+import { QueryClient, QueryClientProvider } from 'react-query'
+
 import './App.css';
+import Users from './components/Users';
 
-function App() {
+const queryClient = new QueryClient();
 
-  const [user, setUser] = useState<any>();
-
-  const fetchUsers = useCallback(async () => {
-    try {
-      const { data }: any = await getUsers();
-      console.log({ data: data.results });
-      setUser(data.results[0]);
-    } catch (error) {
-      console.error({ error });
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
-
-  return (
-    <div className="App">
-      homepage
-      <div>
-        username: {user && `${user.name.title} ${user.name.first} ${user.name.last}`}
-      </div>
-      <img src={user && user.picture.thumbnail} alt="" />
-    </div>
-  );
-}
+const App: React.FC = () => (
+  <QueryClientProvider client={queryClient}>
+    homepage
+    <Users />
+  </QueryClientProvider>
+);
 
 export default App;
