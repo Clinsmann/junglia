@@ -1,15 +1,24 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import './App.css';
-import Users from './components/Users';
+import Dashboard from './components/Dashboard';
 
 const queryClient = new QueryClient();
 
 const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
-    homepage
-    <Users />
+    <div style={{ backgroundColor: "#24292E" }}>
+      <Dashboard />
+    </div>
   </QueryClientProvider>
 );
 
 export default App;
+
+/*
+- #24292E
+- #AEAEBA
+- #363D4D
+- #525252
+ */
+
