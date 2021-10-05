@@ -5,3 +5,5 @@ export interface ITurbineDetail {
   totalEnergyLost: number;
   totalEnergyProduced: number;
 }
+
+export interface TurbineCardProps extends ITurbineDetail { }

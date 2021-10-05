@@ -6,9 +6,11 @@ import { getAvailabilityDetails } from "../api";
 import { ITurbineDetail } from "../utils/interfaces";
 
 const useTurbineFacts = () => {
-  const [endMonth, setEndMonth] = useState<number>(5);
+  const [endMonth, setEndMonth] = useState<number>(1);
   const [startMonth, setStartMonth] = useState<number>(1);
   const [availability, setAvailability] = useState<ITurbineDetail[]>();
+
+  const [summary, setSummary] = useState<any>();
 
   const validateMonth = useCallback(() => {
     const isValid = +endMonth >= +startMonth;
@@ -50,9 +52,35 @@ const useTurbineFacts = () => {
         month: new Date(groupValues[0].bucket).toLocaleString('en-us', { month: 'long' }),
       });
 
+
     });
+    updateSummary(result);
     return result;
   }, [data]);
+
+  const updateSummary = useCallback((result) => {
+    let energyLost = 0,
+      energyProduced = 0,
+      turbineAvailability = 100;
+    // worstTurbine = '';
+
+    result.forEach(({ totalEnergyLost, totalEnergyProduced, worstTurbine }: any) => {
+      energyLost = totalEnergyLost + energyLost;
+      energyProduced = totalEnergyProduced + energyProduced;
+      if ((energyProduced / (energyProduced + energyLost)) < turbineAvailability) {
+        // worstTurbine = turbine;
+      }
+    });
+
+    const availability: any = (energyProduced / (energyProduced + energyLost)) * 100;
+
+    setSummary({
+      energyLost,
+      energyProduced,
+      worstTurbine: result[0].worstTurbine,
+      availability: availability.toFixed(2),
+    })
+  }, [])
 
   useEffect(() => {
     if (isSuccess) {
@@ -62,6 +90,7 @@ const useTurbineFacts = () => {
   }, [data, isSuccess, cleanData]);
 
   return {
+    summary,
     endMonth,
     startMonth,
     setEndMonth,

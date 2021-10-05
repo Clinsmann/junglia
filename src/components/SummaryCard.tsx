@@ -1,15 +1,15 @@
-import TurbineDetail from "./TurbineDetail";
 import { THRESHOLD } from "../utils/constants";
 import { TurbineCardProps } from "../utils/interfaces";
+import TurbineDetail from "./TurbineDetail";
 
-const TurbineCard: React.FC<TurbineCardProps> = ({
+const SummaryCard: React.FC<TurbineCardProps> = ({
   month,
   availability,
   worstTurbine,
   totalEnergyLost,
   totalEnergyProduced,
 }) => (
-  <div className="p-5 rounded-lg" style={{ backgroundColor: "#363D4D" }}>
+  <div className="p-5 rounded-lg">
     <div className="text-white w-full text-center pb-5">{month}</div>
     <TurbineDetail caption="Energy produced" value={String(totalEnergyProduced)} unit={true} />
     <TurbineDetail caption="Energy lost" value={String(totalEnergyLost)} unit={true} />
@@ -19,4 +19,4 @@ const TurbineCard: React.FC<TurbineCardProps> = ({
   </div>
 );
 
-export default TurbineCard;
+export default SummaryCard;

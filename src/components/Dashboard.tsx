@@ -6,9 +6,11 @@ import TurbineCard from './TurbineCard';
 import { MONTHS } from '../utils/constants';
 import { ITurbineDetail } from '../utils/interfaces';
 import useTurbineFacts from '../hooks/useTurbineFacts';
+import SummaryCard from './SummaryCard';
 
 const Dashboard: React.FC = () => {
   const {
+    summary,
     endMonth,
     startMonth,
     setEndMonth,
@@ -27,6 +29,8 @@ const Dashboard: React.FC = () => {
           <Select options={MONTHS} value={endMonth} onChange={(e: any) => setEndMonth(e.target.value)} />
         </div>
       </div>
+      <h1 className="text-white px-10 pt-10 font-semibold uppercase">Monthly Metrics:</h1>
+      <SummaryCard {...summary} />
       <h1 className="text-white px-10 pt-10 font-semibold uppercase">Monthly Metrics:</h1>
 
       {isLoading ? (
