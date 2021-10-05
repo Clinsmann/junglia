@@ -10,7 +10,6 @@ const SummaryCard: React.FC<TurbineCardProps> = ({
   totalEnergyProduced,
 }) => (
   <div className="p-5 rounded-lg">
-    <div className="text-white w-full text-center pb-5">{month}</div>
     <TurbineDetail caption="Energy produced" value={String(totalEnergyProduced)} unit={true} />
     <TurbineDetail caption="Energy lost" value={String(totalEnergyLost)} unit={true} />
     <TurbineDetail caption="Availability" value={availability + "%"}

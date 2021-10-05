@@ -74,9 +74,16 @@ const useTurbineFacts = () => {
 
     const availability: any = (energyProduced / (energyProduced + energyLost)) * 100;
 
-    setSummary({
+    console.log({
       energyLost,
       energyProduced,
+      worstTurbine: result[0].worstTurbine,
+      availability: availability.toFixed(2),
+    })
+
+    setSummary({
+      totalEnergyLost: energyLost,
+      totalEnergyProduced: energyProduced,
       worstTurbine: result[0].worstTurbine,
       availability: availability.toFixed(2),
     })

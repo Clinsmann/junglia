@@ -29,8 +29,10 @@ const Dashboard: React.FC = () => {
           <Select options={MONTHS} value={endMonth} onChange={(e: any) => setEndMonth(e.target.value)} />
         </div>
       </div>
-      <h1 className="text-white px-10 pt-10 font-semibold uppercase">Monthly Metrics:</h1>
-      <SummaryCard {...summary} />
+      <h1 className="text-white px-10 pt-10 font-semibold uppercase">Farm Metrics:</h1>
+      <div className="pl-5">
+        <SummaryCard {...summary} />
+      </div>
       <h1 className="text-white px-10 pt-10 font-semibold uppercase">Monthly Metrics:</h1>
 
       {isLoading ? (
