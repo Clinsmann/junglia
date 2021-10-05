@@ -6,6 +6,8 @@ interface SelectProps {
 
 const Select: React.FC<SelectProps> = ({ options, onChange, value }) => (
   <select
+    style={{ backgroundColor: "#363D4D" }}
+    className="text-white"
     value={value}
     onChange={onChange}>
     {options.map((value, index) => (<option key={value} value={index + 1}>{value}</option>))}
