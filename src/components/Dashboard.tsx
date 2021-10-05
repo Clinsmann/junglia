@@ -4,8 +4,8 @@ import Select from './Select';
 import Loader from './Loader';
 import TurbineCard from './TurbineCard';
 import { MONTHS } from '../utils/constants';
-import useTurbineFacts from '../hooks/useTurbineFacts';
 import { ITurbineDetail } from '../utils/interfaces';
+import useTurbineFacts from '../hooks/useTurbineFacts';
 
 const Dashboard: React.FC = () => {
   const {

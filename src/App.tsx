@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 
 const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
-    <div className="h-screen app-background">
+    <div className="h-screen app-background overflow-scroll">
       <Dashboard />
     </div>
   </QueryClientProvider>
