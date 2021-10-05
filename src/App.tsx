@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useCallback, useEffect, useState } from 'react';
+import { getUsers } from './api';
 import './App.css';
 
 function App() {
+
+  const [user, setUser] = useState<any>();
+
+  const fetchUsers = useCallback(async () => {
+    try {
+      const { data }: any = await getUsers();
+      console.log({ data: data.results });
+      setUser(data.results[0]);
+    } catch (error) {
+      console.error({ error });
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      homepage
+      <div>
+        username: {user && `${user.name.title} ${user.name.first} ${user.name.last}`}
+      </div>
+      <img src={user && user.picture.thumbnail} alt="" />
     </div>
   );
 }
