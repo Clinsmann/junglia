@@ -51,8 +51,6 @@ const useTurbineFacts = () => {
         availability: availability.toFixed(2),
         month: new Date(groupValues[0].bucket).toLocaleString('en-us', { month: 'long' }),
       });
-
-
     });
     updateSummary(result);
     return result;
@@ -62,24 +60,15 @@ const useTurbineFacts = () => {
     let energyLost = 0,
       energyProduced = 0,
       turbineAvailability = 100;
-    // worstTurbine = '';
 
     result.forEach(({ totalEnergyLost, totalEnergyProduced, worstTurbine }: any) => {
       energyLost = totalEnergyLost + energyLost;
       energyProduced = totalEnergyProduced + energyProduced;
       if ((energyProduced / (energyProduced + energyLost)) < turbineAvailability) {
-        // worstTurbine = turbine;
       }
     });
 
     const availability: any = (energyProduced / (energyProduced + energyLost)) * 100;
-
-    console.log({
-      energyLost,
-      energyProduced,
-      worstTurbine: result[0].worstTurbine,
-      availability: availability.toFixed(2),
-    })
 
     setSummary({
       totalEnergyLost: energyLost,
