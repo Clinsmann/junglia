@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import _ from 'underscore';
 import { getAvailabilityDetails } from '../api';
-import { ITurbineDetail } from '../api/utils/interfaces';
+import { MONTHS } from '../utils/constants';
+import { ITurbineDetail } from '../utils/interfaces';
+import Loader from './Loader';
+import Select from './Select';
 import TurbineCard from './TurbineCard';
-
 
 const Dashboard: React.FC = () => {
   const [endMonth, setEndMonth] = useState<number>(5);
@@ -13,6 +15,8 @@ const Dashboard: React.FC = () => {
 
   const query = useQuery<any>(['availability', { startMonth, endMonth }], getAvailabilityDetails);
   const { isLoading, data, isSuccess } = query;
+
+  console.log({ endMonth, startMonth });
 
   useEffect(() => {
     if (isSuccess) {
@@ -53,14 +57,32 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
+
+      <div className="pt-5 text-center ">
+        <div className="border border-gray-500 mt-5 pt-3 pb-5 px-5 inline-block rounded-lg">
+          <div className="muted-text m-0 pb-3">Show data between</div>
+          <Select options={MONTHS} value={startMonth} onChange={(e: any) => setStartMonth(e.target.value)} />
+          <span className="muted-text px-5">and</span>
+          <Select options={MONTHS} value={endMonth} onChange={(e: any) => setEndMonth(e.target.value)} />
+        </div>
+      </div>
+      <h1 className="text-white px-10 pt-10 font-semibold uppercase">Monthly Metrics:</h1>
+
       {isLoading ? (
-        <span>loading...</span>
+        <div className="px-16 py-16 flex justify-center ">
+          <Loader />
+        </div>
       ) : (
         <>
-          <h1 className="text-white px-10 pt-10 font-semibold uppercase">Monthly Metrics:</h1>
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4 pt-6 pb-16 px-10">
             {availability && (
-              availability.map(({ worstTurbine, totalEnergyLost, totalEnergyProduced, availability, month }: ITurbineDetail) => (
+              availability.map(({
+                month,
+                availability,
+                worstTurbine,
+                totalEnergyLost,
+                totalEnergyProduced, }: ITurbineDetail) => (
                 <TurbineCard
                   key={month}
                   month={month}

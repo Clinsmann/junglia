@@ -1,11 +1,10 @@
-import { ITurbineDetail } from "../api/utils/interfaces";
 import TurbineDetail from "./TurbineDetail";
+import { THRESHOLD } from "../utils/constants";
+import { ITurbineDetail } from "../utils/interfaces";
 
-interface ITurbineCard extends ITurbineDetail { }
+interface TurbineCardProps extends ITurbineDetail { }
 
-const threshold: number = parseInt(String(process.env.REACT_APP_GOOD_AVAILABILITY_THRESHOLD));
-
-const TurbineCard: React.FC<ITurbineCard> = ({
+const TurbineCard: React.FC<TurbineCardProps> = ({
   month,
   availability,
   worstTurbine,
@@ -17,7 +16,7 @@ const TurbineCard: React.FC<ITurbineCard> = ({
     <TurbineDetail caption="Energy produced" value={String(totalEnergyProduced)} unit={true} />
     <TurbineDetail caption="Energy lost" value={String(totalEnergyLost)} unit={true} />
     <TurbineDetail caption="Availability" value={availability + "%"}
-      color={parseFloat(availability) > threshold ? 'text-green-500' : 'text-red-500'} />
+      color={parseFloat(availability) > THRESHOLD ? 'text-green-500' : 'text-red-500'} />
     <TurbineDetail caption="Worst turbine" value={worstTurbine} />
   </div>
 );

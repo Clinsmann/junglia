@@ -7,18 +7,10 @@ const queryClient = new QueryClient();
 
 const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
-    <div style={{ backgroundColor: "#24292E" }}>
+    <div className="h-screen app-background">
       <Dashboard />
     </div>
   </QueryClientProvider>
 );
 
 export default App;
-
-/*
-- #24292E
-- #AEAEBA
-- #363D4D
-- #525252
- */
-
